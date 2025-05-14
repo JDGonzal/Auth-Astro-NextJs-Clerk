@@ -141,8 +141,93 @@ siquiente:
 </style>
 ```
 
-9. Regresamos al arhivo **`astro-auth/src/pages/index.astro`** y
-  cambiamos la etiqueta `<h1`, por lo siguiente
-```js
+## 4. Creando la interfaz de usuario. (0:17:40)
 
+1. Regresamos al arhivo **`astro-auth/src/pages/index.astro`** y
+  cambiamos la etiqueta `<h1`, por lo siguiente por `<main`
+```js
+<Layout>
+	<main class="max-w-xl mx-auto py-12">
+		<h1>App de retos personales</h1>
+		<p>
+			Esta es una aplicación de retos personales que te permite crear y gestionar tus propios retos. Puedes añadir nuevos retos, marcarlos como completados y eliminarlos cuando ya no los necesites.
+		</p>
+		<p>¡Solo para usuarios autenticados!</p>
+  	</main>
+</Layout>
+```
+
+2. Debajo de la última etiquieta `</p>` ponemos un `<div`
+para un `<button`:
+```js
+		<div>
+			<button class="bg-blue-500 text-white px-4 py-2 rounded">
+				Iniciar Sesión
+			</button>
+		</div>
+```
+* Así luce la pantalla hasta este momento:  
+![Interfaz de Usuario 1](images/2025-05-13_181631.png "Interfaz de Usuario 1")
+
+3. Agregamos estilos con `class` y otra etiqueta `<p`:
+```js
+<Layout>
+	<main class="max-w-xl mx-auto py-12">
+		<h1 class="text-3xl font-bold mb-6">
+			App de retos personales
+		</h1>
+		<p>
+			Esta es una aplicación de retos personales que te permite crear y gestionar tus propios retos. Puedes añadir nuevos retos, marcarlos como completados y eliminarlos cuando ya no los necesites.
+		</p>
+		<p class="mt-6">¡Solo para usuarios autenticados!</p>
+
+		<div class="mt-12">
+			<button class="bg-blue-500 text-white px-4 py-2 rounded">
+				Iniciar Sesión
+			</button>
+		</div>
+		<p class="mt-12">
+			Si ya has iniciado sesión, puedes ver tus retos personales en
+			<a class="underline text-sky-400" href="/retos">la sección de retos</a> .
+		</p>
+	</main>
+</Layout>
+```
+
+4. Creamos el archivo **`astro-auth/src/pages/retos.astro`**,
+con este código:
+```js
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title = "🔒 Private">
+	<main class="max-w-xl mx-auto py-12">
+		<h1 class="text-3xl font-bold mb-6">
+			tus retos personales
+		</h1>
+		<p>Esta página está protegida y sólo un usuario registrado la puede ver</p>
+    <ul>
+      <li></li>
+    </ul> 
+	</main>
+</Layout>
+```
+
+5. Agregar al archivo **`astro-auth/src/pages/index.astro`**,
+en el renderizado del `<Layout` un `title`:
+```js
+<Layout title = "🔓 Public - Start App">
+```
+
+6. Corregimos el arcchivo **`astro-auth/src/layouts/Layout.astro`**
+agregando una `const` en el tope entre triple guión `---`:
+```js
+---
+	const {title} = Astro.props;
+---
+```
+7. Cambiamos la propiedad `<title>` por el valor de la constante:
+```js
+		<title>{title}</title>
 ```

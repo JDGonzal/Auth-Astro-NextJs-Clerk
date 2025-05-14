@@ -2,6 +2,24 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout>
-	<h1>Retos app</h1>
+<Layout title = "🔓 Public - Start App">
+	<main class="max-w-xl mx-auto py-12">
+		<h1 class="text-3xl font-bold mb-6">
+			App de retos personales
+		</h1>
+		<p>
+			Esta es una aplicación de retos personales que te permite crear y gestionar tus propios retos. Puedes añadir nuevos retos, marcarlos como completados y eliminarlos cuando ya no los necesites.
+		</p>
+		<p class="mt-6">¡Solo para usuarios autenticados!</p>
+
+		<div class="mt-12">
+			<button class="bg-blue-500 text-white px-4 py-2 rounded">
+				Iniciar Sesión
+			</button>
+		</div>
+		<p class="mt-12">
+			Si ya has iniciado sesión, puedes ver tus retos personales en
+			<a class="underline text-sky-400" href="/retos">la sección de retos</a> .
+		</p>
+	</main>
 </Layout>
