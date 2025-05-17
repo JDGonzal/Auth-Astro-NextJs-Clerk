@@ -2,7 +2,7 @@
 
 ## Auth-Astro-NextJs-Clerk
 
-[![Build a Full Stack AI Note Taking App with Next.js and Supabase – Tutorial](images/2025-05-13_162653.png "Build a Full Stack AI Note Taking App with Next.js and Supabase – Tutorial")](https://www.youtube.com/watch?v=dsw3JePcA_0&t=810s)
+[![Agrega Autenticación en tu app de Astro y Next.js con Clerk](images/2025-05-13_162653.png "Agrega Autenticación en tu app de Astro y Next.js con Clerk")](https://www.youtube.com/watch?v=dsw3JePcA_0&t=810s)
 
 ## 1. Intro (0:00:00)
 
@@ -220,7 +220,7 @@ en el renderizado del `<Layout` un `title`:
 <Layout title = "🔓 Public - Start App">
 ```
 
-6. Corregimos el arcchivo **`astro-auth/src/layouts/Layout.astro`**
+6. Corregimos el archivo **`astro-auth/src/layouts/Layout.astro`**
 agregando una `const` en el tope entre triple guión `---`:
 ```js
 ---
@@ -231,3 +231,23 @@ agregando una `const` en el tope entre triple guión `---`:
 ```js
 		<title>{title}</title>
 ```
+
+## Nuestra primer autenticación. (0:21:27)
+
+1. Vamos a la Página de [clerk.com](https://clerk.com/), y le damos
+al botón de `[Sign in]`.
+
+
+2. Usamos una cuenta de `GitHub` y autorizamos a `clerk`.
+
+
+3. En esta pantalla:  
+![Application name: retos-app](images/2025-05-17_172122.png "Application name: retos-app")  
+* Escribimos el nombre `retos-app`.
+
+
+4. Activamos el botón de `GitHub` y así se ve la pantalla:  
+![](images/2025-05-17_172716.png "")
+
+
+5. Damos clic en el botón `[Create application]`.
