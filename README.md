@@ -232,7 +232,7 @@ agregando una `const` en el tope entre triple guión `---`:
 		<title>{title}</title>
 ```
 
-## Nuestra primer autenticación. (0:21:27)
+## 5. Nuestra primer autenticación. (0:21:27)
 
 1. Vamos a la Página de [clerk.com](https://clerk.com/), y le damos
 al botón de `[Sign in]`.
@@ -251,3 +251,58 @@ al botón de `[Sign in]`.
 
 
 5. Damos clic en el botón `[Create application]`.
+
+
+## 6. Instalando Clerk en Astro. (0:25:41)
+
+1. Damos clic en el botón de `Astro`,  en la página
+ `https://dashboard.clerk.com/` para ver como realizar
+la configuración.
+
+2. Ingresamos en la `TERMINAL` a la carpeta de **"astro-auth"**:
+```bash
+cd ./astro-auth 
+```
+
+3. Ejecutamos el primer comando `Install @clerk/astro`, en una
+`TERMINAL`, este comando:
+```bash
+pnpm add @clerk/astro -E
+```
+
+4. El paso dos es copiar las variables de ambiente en un
+archivo nuevo de nombre **`astro-auth/.env`**,
+con dos valores:
+```ini
+PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_*******
+CLERK_SECRET_KEY=sk_test_*******
+```
+>[!TIP]  
+>### El archivo **`.env`**, jamás se sube al repositorio.
+
+5.  Ejecutamos otro comando en la `TERMINAL`, porque se debe tener
+un adaptador de _Server Side Rendering_:
+```bash
+pnpm add @astrojs/node -E
+```
+
+6. Abrimos el archivo **`astro-auth/astro.config.mjs`**, y copiamos
+el paso tres del sitio de `clerk.com`:
+```js
+// @ts-check
+import { defineConfig } from 'astro/config';
+import node from "@astrojs/node";
+import clerk from "@clerk/astro";
+
+import tailwindcss from '@tailwindcss/vite';
+
+// https://astro.build/config
+export default defineConfig({
+  integrations: [clerk()],
+  vite: {
+    plugins: [tailwindcss()]
+  },
+  adapter: node({ mode: "standalone" }),
+  output: "server",
+});
+```
