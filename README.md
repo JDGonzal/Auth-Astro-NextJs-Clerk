@@ -306,3 +306,26 @@ export default defineConfig({
   output: "server",
 });
 ```
+
+## 7. Creando nuestro middleware (0:32:48)
+
+1. Creamos el archivo **`astro-auth/src/middleware.ts`**.
+2. El sitio `https://dashboard.clerk.com/`, copiamos el contenido
+del paso cuatro, en el nuevo archivo.
+3. Mejoramos el contenido del llamado a la función `clerkMiddleware()` con un _callback_:
+```js
+import { defineMiddleware } from "astro:middleware";
+
+export const onRequest = defineMiddleware((context, next) => {
+  console.log("Middleware triggered");
+  const lang = context.request.headers.get("accept-language");
+  console.log("Language:", lang);
+  return next();
+});
+```
+4. Comentamos nuestro código y ponemos el del paso 2:
+```js
+import { clerkMiddleware } from "@clerk/astro/server";
+
+export const onRequest = clerkMiddleware();
+```
