@@ -7,6 +7,17 @@
 //   return next();
 // });
 
-import { clerkMiddleware } from "@clerk/astro/server";
+import { clerkMiddleware, createRouteMatcher } from '@clerk/astro/server';
 
-export const onRequest = clerkMiddleware();
+const isProtectedRoute = createRouteMatcher(['/retos(.*)']);
+
+export const onRequest = clerkMiddleware((auth, context) => {
+  const { userId, redirectToSignIn } = auth(); // Recuperamos el userId
+
+  // Validamos las rutas protegidas
+  if (isProtectedRoute(context.request) && !userId) {
+    // Redireccionamos la respuesta a la raíz
+    // return Response.redirect(new URL('/', context.request.url));
+    return redirectToSignIn(); // Redireccionamos a inicio se sesión
+  }
+});
