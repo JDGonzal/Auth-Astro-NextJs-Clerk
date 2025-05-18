@@ -312,7 +312,7 @@ export default defineConfig({
 1. Creamos el archivo **`astro-auth/src/middleware.ts`**.
 2. El sitio `https://dashboard.clerk.com/`, copiamos el contenido
 del paso cuatro, en el nuevo archivo.
-3. Mejoramos el contenido del llamado a la función `clerkMiddleware()` con un _callback_:
+3. Mejoramos el contenido del llamado a la función `clerkMiddleware()` con un _Callback_:
 ```js
 import { defineMiddleware } from "astro:middleware";
 
@@ -329,3 +329,46 @@ import { clerkMiddleware } from "@clerk/astro/server";
 
 export const onRequest = clerkMiddleware();
 ```
+
+## 8. Proteger rutas (0:44:12)
+
+1. Añadimos a la importación de **`astro-auth\src\middleware.ts`**
+un `createRouteMatcher` y la definimos en una constante de 
+nombre `matcher`:
+```js
+import { clerkMiddleware, createRouteMatcher } from '@clerk/astro/server';
+
+const isProtectedRoute = createRouteMatcher(['/retos(.*)']);
+```
+
+2. le pasamos un _Callback_ a la función `clerkMiddleware()`:
+```js
+export const onRequest = clerkMiddleware((auth, context) => {
+  const { userId } = auth(); // Recuperamos el userId
+
+  // Validamos las rutas protegidas
+  if (isProtectedRoute(context.request) && !userId) {
+    // Redireccionamos la respuesta a la raíz
+    return Response.redirect(new URL('/', context.request.url));
+  }
+});
+```
+
+3. Mejoramos la redirección no a la raíz sino a un sitio que
+proporciona `clerk` , que es un inicio se sesión:
+```js
+export const onRequest = clerkMiddleware((auth, context) => {
+  const { userId, redirectToSignIn } = auth(); // Recuperamos el userId
+
+  // Validamos las rutas protegidas
+  if (isProtectedRoute(context.request) && !userId) {
+    // Redireccionamos la respuesta a la raíz
+    // return Response.redirect(new URL('/', context.request.url));
+    return redirectToSignIn(); // Redireccionamos a inicio se sesión
+  }
+});
+```
+
+4. Al hacer clic en el link que nos llevará a la página 
+`/retos`, nos abre una sitio para hacer el `Sign In`:  
+![Sign In retos-app 1](images/2025-05-18_175442.png "Sign In retos-app 1")
