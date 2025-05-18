@@ -1,5 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import {
+	SignedIn,
+	SignedOut,
+	SignInButton,
+	UserButton,
+} from '@clerk/astro/components';
 ---
 
 <Layout title = "🔓 Public - Start App">
@@ -12,14 +18,22 @@ import Layout from '../layouts/Layout.astro';
 		</p>
 		<p class="mt-6">¡Solo para usuarios autenticados!</p>
 
-		<div class="mt-12">
-			<button class="bg-blue-500 text-white px-4 py-2 rounded">
-				Iniciar Sesión
-			</button>
-		</div>
-		<p class="mt-12">
-			Si ya has iniciado sesión, puedes ver tus retos personales en
-			<a class="underline text-sky-400" href="/retos">la sección de retos</a> .
-		</p>
+		<SignedOut>
+			<div class="mt-12">
+				<SignInButton class="bg-blue-500 text-white px-4 py-2 rounded">
+					Iniciar Sesión
+				</SignInButton>
+			</div>	
+		</SignedOut>
+
+		<SignedIn>
+			<UserButton/>
+			<p class="mt-12">
+				¡Ya has iniciado sesión!, Entra a tu 
+				<a class="underline text-sky-400" href="/retos">
+				panel de retos</a>
+			</p>
+		</SignedIn>
+		
 	</main>
 </Layout>

@@ -307,7 +307,7 @@ export default defineConfig({
 });
 ```
 
-## 7. Creando nuestro middleware (0:32:48)
+## 7. Creando nuestro middleware. (0:32:48)
 
 1. Creamos el archivo **`astro-auth/src/middleware.ts`**.
 2. El sitio `https://dashboard.clerk.com/`, copiamos el contenido
@@ -330,7 +330,7 @@ import { clerkMiddleware } from "@clerk/astro/server";
 export const onRequest = clerkMiddleware();
 ```
 
-## 8. Proteger rutas (0:44:12)
+## 8. Proteger rutas. (0:44:12)
 
 1. Añadimos a la importación de **`astro-auth\src\middleware.ts`**
 un `createRouteMatcher` y la definimos en una constante de 
@@ -372,3 +372,59 @@ export const onRequest = clerkMiddleware((auth, context) => {
 4. Al hacer clic en el link que nos llevará a la página 
 `/retos`, nos abre una sitio para hacer el `Sign In`:  
 ![Sign In retos-app 1](images/2025-05-18_175442.png "Sign In retos-app 1")
+
+
+
+## 9. Componentes de Clerk. (0:49:08)
+
+1. Vamos al archivo **`astro-auth/src/pages/index.astro`** e
+importamos algunos componente de `clerk`:
+```js
+import {
+	SignedIn,
+	SignedOut,
+	SignInButton,
+	UserButton,
+} from '@clerk/astro/components';
+```
+
+2. Ajustamos el botón de `Iniciar Sesión`, dentro del 
+renderizado o llamado del componente `<SignedOut`:
+```js
+		<SignedOut>
+			<div class="mt-12">
+				<button class="bg-blue-500 text-white px-4 py-2 rounded">
+					Iniciar Sesión
+				</button>
+			</div>	
+		</SignedOut>
+```
+
+3. Si el usuario está autenticado o iniciado sesión
+usamos el renderizado del componente `<SignedIn`:
+```js
+		<SignedIn>
+			<p class="mt-12">
+				¡Ya has iniciado sesión!, Entra a tu 
+				<a class="underline text-sky-400" href="/retos">
+				panel de retos</a>
+			</p>
+		</SignedIn>
+```
+
+4. Cambiamos la etiqueta `<button` por el componente `<SignInButton`:
+```js
+		<SignedOut>
+			<div class="mt-12">
+				<SignInButton class="bg-blue-500 text-white px-4 py-2 rounded">
+					Iniciar Sesión
+				</SignInButton>
+			</div>	
+		</SignedOut>
+```
+
+6. Simplemente Dentro del renderizado de `<SignedIn`, llamamamos
+el componente `<UserButton/>`.
+
+7. Así se ve el funcionamiento hasta el momento:  
+![Sign In y Log Out](images/2025-05-18_183035.gif "Sign In y Log Out")
