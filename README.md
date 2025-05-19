@@ -510,5 +510,39 @@ que muestre el nombre del usuario:
 ```
 
 7. Cambiamos el Tema de `neobrutalism` a `dark` y así se ve la
-página de `/retos`:  
-![]( "")
+página de cuando se tiene el usuario validado:  
+![Con el tema `dark`](images/2025-05-19_085853.png "Con el tema `dark`")
+
+
+
+## 11. Cambiar el idioma de Clerk. (0:55:35)
+
+1. Del sitio [Localization](https://clerk.com/docs/customization/localization)
+usamos el comando para instalar en la `TERMINAL`:
+```bash
+pnpm add @clerk/localizations -E
+```
+
+2. Vamos al archivo **`astro-auth/astro.config.mjs`**, e 
+importamos el idioma que vamos a utilizar y se pone en
+`defineConfig`:
+```js
+...
+import { esMX } from '@clerk/localizations';
+...
+// https://astro.build/config
+export default defineConfig({
+  integrations: [
+    clerk({
+      localization: esMX,
+      appearance: {
+        baseTheme: dark,
+      },
+    }),
+  ],
+  ...
+});
+```
+
+3. Vamos al ícono o botón del usuario y eso nos aparece:  
+![Botón de Usuario en español](images/2025-05-19_091715.png "Botón de Usuario en español")
