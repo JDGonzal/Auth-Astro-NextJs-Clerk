@@ -14,8 +14,11 @@ importers:
       '@clerk/astro':
         specifier: 2.7.4
         version: 2.7.4(astro@5.7.13(@types/node@22.15.17)(jiti@2.4.2)(lightningcss@1.29.2)(rollup@4.40.2)(typescript@5.8.3))(react@19.1.0)
+      '@clerk/localizations':
+        specifier: 3.16.0
+        version: 3.16.0
       '@clerk/themes':
-        specifier: ^2.2.45
+        specifier: 2.2.45
         version: 2.2.45
       '@tailwindcss/vite':
         specifier: 4.1.6
@@ -89,6 +92,10 @@ packages:
     peerDependenciesMeta:
       svix:
         optional: true
+
+  '@clerk/localizations@3.16.0':
+    resolution: {integrity: sha512-NOS0y9fEmRATzB6owcbmjirygXv2PaiVKBECqnpSvb0CYvQmhU+uVUqfim9+Xv/PEXiW+h2eH+tvd+X9VzxwFw==}
+    engines: {node: '>=18.17.0'}
 
   '@clerk/shared@3.9.1':
     resolution: {integrity: sha512-Gw7yPaas3lv+pkkbBwuqVVtWVH1nZl1hF8kVvdEhPALOkf6ww6azL6qcHaiFUHCW+iult3flJjplduFrfWF50g==}
@@ -1945,6 +1952,10 @@ snapshots:
     transitivePeerDependencies:
       - react
       - react-dom
+
+  '@clerk/localizations@3.16.0':
+    dependencies:
+      '@clerk/types': 4.59.0
 
   '@clerk/shared@3.9.1(react@19.1.0)':
     dependencies:
