@@ -20,14 +20,25 @@ import {
 
 		<SignedOut>
 			<div class="mt-12">
-				<SignInButton class="bg-blue-500 text-white px-4 py-2 rounded">
+				<SignInButton 
+				mode="modal" 
+				class="bg-blue-500 text-white px-4 py-2 rounded"
+				appearance={
+					{
+						elements: {
+							// Customize the sign-in button
+							buttonPrimary: 'bg-blue-500 text-white',
+							footerItem: 'text-gray-500',
+						},
+					}
+				}>
 					Iniciar Sesión
 				</SignInButton>
 			</div>	
 		</SignedOut>
 
 		<SignedIn>
-			<UserButton/>
+			<UserButton showName/>
 			<p class="mt-12">
 				¡Ya has iniciado sesión!, Entra a tu 
 				<a class="underline text-sky-400" href="/retos">

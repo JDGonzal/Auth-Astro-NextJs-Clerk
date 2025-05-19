@@ -428,3 +428,87 @@ el componente `<UserButton/>`.
 
 7. Así se ve el funcionamiento hasta el momento:  
 ![Sign In y Log Out](images/2025-05-18_183035.gif "Sign In y Log Out")
+
+
+
+## 10. Agregando estilos a los componentes de Clerk. (0:52:31)
+
+1. Al renderizado del componente `<SignInButton`, activamos una
+propiedad de nombre `mode` y el valor `"modal"`:
+```js
+				<SignInButton mode="modal" class="bg-blue-500 text-white px-4 py-2 rounded">
+					Iniciar Sesión
+				</SignInButton>
+```
+* Nos aparece en forma de modal:  
+![`Sign In` en forma de Modal](images/2025-05-19_083242.png "`Sign In` en forma de Modal")
+
+
+
+2. Otro Ejemplo en el renderizado de `<SignInButton`, le ponemos
+la propiedad `appearance` y ponemos a cada elemento su estilo:
+```js
+				<SignInButton 
+				mode="modal" 
+				class="bg-blue-500 text-white px-4 py-2 rounded"
+				appearance={
+					{
+						elements: {
+							// Customize the sign-in button
+							buttonPrimary: 'bg-blue-500 text-white',
+							footerItem: 'text-gray-500',
+						},
+					}
+				}>
+					Iniciar Sesión
+				</SignInButton>
+```
+
+3. Podemos tener una tanda basada en temas de este sitio
+[Themes](https://clerk.com/docs/customization/themes), pero se
+debe instalar en una `TERMINAL` con este comando:
+```bash
+pnpm add @clerk/themes -E
+```
+4. Importamos en **`astro-auth/astro.config.mjs`** uno de los
+tantos temas y lo usamos:
+```js
+// @ts-check
+import { defineConfig } from 'astro/config';
+import node from '@astrojs/node';
+import clerk from '@clerk/astro';
+import { neobrutalism } from '@clerk/themes';
+
+import tailwindcss from '@tailwindcss/vite';
+
+// https://astro.build/config
+export default defineConfig({
+  integrations: [
+    clerk({
+      appearance: {
+        baseTheme: neobrutalism,
+      },
+    }),
+  ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  adapter: node({ mode: 'standalone' }),
+  output: 'server',
+});
+```
+
+5. Al presionar el botón `[Iniciar Sesión]`, nos aparece algo así:  
+![`Sign In` con el tema `neobrutalism`](images/2025-05-19_085114.png "`Sign In` con el tema `neobrutalism`")
+
+
+
+6. También le podemos agregar al renderizado de `<UserButton/>`, 
+que muestre el nombre del usuario:
+```js
+			<UserButton showName/>
+```
+
+7. Cambiamos el Tema de `neobrutalism` a `dark` y así se ve la
+página de `/retos`:  
+![]( "")
