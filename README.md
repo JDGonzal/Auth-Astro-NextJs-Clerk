@@ -546,3 +546,15 @@ export default defineConfig({
 
 3. Vamos al ícono o botón del usuario y eso nos aparece:  
 ![Botón de Usuario en español](images/2025-05-19_091715.png "Botón de Usuario en español")
+
+
+
+## 12. Componentes para los retos. (0:57:03)
+
+1. En la carpeta **"astro-auth/src/components"** 
+creamos dos archivos :
+* [**`ChallengesList.astro`**](https://github.com/midudev/hackaton-clerk-2025/blob/ec6513c8e68723939c8f6a89d570957e3267d6e5/astro-auth/src/components/ChallengesList.astro)
+* [**`AddChallenge.astro`**](https://github.com/midudev/hackaton-clerk-2025/blob/ec6513c8e68723939c8f6a89d570957e3267d6e5/astro-auth/src/components/AddChallenge.astro#L7) 
+ 
+2. El contenido de los archivos está en el repositorio
+[hackaton-clerk-2025](https://github.com/midudev/hackaton-clerk-2025/)

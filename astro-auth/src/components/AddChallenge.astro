@@ -1,0 +1,56 @@
+---
+// Componente para añadir un nuevo reto
+---
+
+<form class='flex gap-2 mt-6' id='add-challenge-form'>
+  <input
+    type='text'
+    name='challenge'
+    placeholder='Nuevo reto'
+    required
+    class='flex-1 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400'
+  />
+
+  <button
+    type='submit'
+    class='px-4 py-2 rounded-md bg-blue-600 text-white dark:bg-blue-700 dark:text-gray-200 hover:bg-blue-700 dark:hover:bg-blue-800 transition'
+  >
+    Añadir reto
+  </button>
+</form>
+
+<script>
+  const el = document.getElementById('add-challenge-form');
+
+  el?.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const input = el.querySelector(
+      'input[name="challenge"]'
+    ) as HTMLInputElement;
+
+    if (!input) return;
+
+    const value = input.value.trim();
+    if (!value) return;
+
+    try {
+      await fetch('/api/challenges.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ challenge: value }),
+      });
+    } catch (e) {
+      console.error(e);
+    }
+
+    // emit custom event to update retos
+    const event = new CustomEvent('challenge-added', {
+      detail: { challenge: value },
+    });
+    document.dispatchEvent(event);
+
+    input.value = '';
+    input.focus();
+  });
+</script>
