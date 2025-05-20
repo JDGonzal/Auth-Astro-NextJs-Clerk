@@ -1,5 +1,11 @@
 ---
+import AddChallenge from '../components/AddChallenge.astro';
+import ChallengesList from '../components/ChallengesList.astro';
 import Layout from '../layouts/Layout.astro';
+import { getUserChallenges } from '../lib/db';
+
+const userId = 'testUser'; // Mock user from `challenges.json.ts`
+const challenges = await getUserChallenges(userId);
 ---
 
 <Layout title = "🔒 Private">
@@ -8,8 +14,7 @@ import Layout from '../layouts/Layout.astro';
 			tus retos personales
 		</h1>
 		<p>Esta página está protegida y sólo un usuario registrado la puede ver</p>
-    <ul>
-      <li></li>
-    </ul> 
+    <ChallengesList retos={challenges} />
+		<AddChallenge />	
 	</main>
 </Layout>
