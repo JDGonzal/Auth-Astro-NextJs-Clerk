@@ -558,3 +558,91 @@ creamos dos archivos :
  
 2. El contenido de los archivos está en el repositorio
 [hackaton-clerk-2025](https://github.com/midudev/hackaton-clerk-2025/)
+
+
+## 13. Creando API. (1:00:16)
+
+1. Creamos la carpeta **"lib"** dentro de
+**"astro-auth/src"**.
+
+2. Dentro de la nueva carpeta creamos el archivo **`db.ts`**, 
+con el contenido de [**`db.ts`**](https://github.com/midudev/hackaton-clerk-2025/blob/main/astro-auth/src/lib/db.ts).
+
+3. En la carpeta **"astro-auth/src/pages"**, creamos la carpeta
+**"api"**.
+
+4. En la nueva carpeta creamos el archivo **`challenges.json.ts`**,
+con el contenido de este sitio [**`challenges.json.ts`**](https://github.com/midudev/hackaton-clerk-2025/blob/main/astro-auth/src/pages/api/challenges.json.ts)
+
+5. Se ajustan algunos datos en el archivo **`challenges.json.ts`**:
+```js
+...
+export const GET: APIRoute = async ({ locals }) => {
+  // const user = await locals.currentUser();
+  // if (!user) return new Response('Unauthorized', { status: 401 });
+  const user = { id: 'testUser' }; // Mock user for testing
+  ...
+
+export const POST: APIRoute = async ({ locals, request }) => {
+  // const user = await locals.currentUser();
+  const user = { id: 'testUser' }; // Mock user for testing
+  ...
+};
+```
+
+6. Añadimos el uso de los componentes en la página
+**`astro-auth/src/pages/retos.astro`**, cambiando la etiqueta
+`<ul`:
+```js
+---
+import AddChallenge from '../components/AddChallenge.astro';
+import ChallengesList from '../components/ChallengesList.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title = "🔒 Private">
+	<main class="max-w-xl mx-auto py-12">
+		<h1 class="text-3xl font-bold mb-6">
+			tus retos personales
+		</h1>
+		<p>Esta página está protegida y sólo un usuario registrado la puede ver</p>
+    <ChallengesList retos={[]} />
+		<AddChallenge />	
+	</main>
+</Layout>
+```
+
+7. Al ingresar a la página de `retos` con un usuario autenticado,
+nos aparece esta pantalla:  
+![Componente `<AddChallenge/>`](images/2025-05-20_062725.png "Componente `<AddChallenge/>`")
+
+
+
+8. Los estilos de la etiqueta `<ul` en el archivo 
+**`astro-auth/src/components/ChallengesList.astro`**, ya
+tienen el `flex flex-col`.
+
+9. En el archivo **`astro-auth/src/pages/retos.astro`**, añadimos
+que muestre al principio los retos guardados o recuperados con base en
+el `getUserChallenges()` de **`astro-auth/src/lib/db.ts`**:
+```js
+---
+...
+import { getUserChallenges } from '../lib/db';
+
+const userId = 'testUser'; // Mock user from `challenges.json.ts`
+const challenges = await getUserChallenges(userId);
+---
+
+<Layout title = "🔒 Private">
+	<main class="max-w-xl mx-auto py-12">
+		...
+    <ChallengesList retos={challenges} />
+		...	
+	</main>
+</Layout>
+```
+
+10. así se ve la página de `retos` con lo recuperado del archivo
+que se almacena en **`/tmp/data/challenges/testUser.json`**:  
+![Lista recupera de retos](images/2025-05-20_180735.png "Lista recupera de retos")
