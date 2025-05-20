@@ -4,7 +4,13 @@ import ChallengesList from '../components/ChallengesList.astro';
 import Layout from '../layouts/Layout.astro';
 import { getUserChallenges } from '../lib/db';
 
-const userId = 'testUser'; // Mock user from `challenges.json.ts`
+// const userId = 'testUser'; // Mock user from `challenges.json.ts`
+const user = await Astro.locals.currentUser();
+if(!user) {
+	// return Astro.redirect('/login');
+	return new Response('Unauthorized', { status: 401 });
+}
+const userId = user.id;
 const challenges = await getUserChallenges(userId);
 ---
 

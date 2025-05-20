@@ -646,3 +646,40 @@ const challenges = await getUserChallenges(userId);
 10. así se ve la página de `retos` con lo recuperado del archivo
 que se almacena en **`/tmp/data/challenges/testUser.json`**:  
 ![Lista recupera de retos](images/2025-05-20_180735.png "Lista recupera de retos")
+
+
+
+
+## 14. Recuperar la ID del usuario. (1:10:58)
+
+1. Cambiamos en el archivo **`retos.astro`**, en la la línea de
+`const userId = 'testUser';`, por un valor que ya tiene `Astro`:
+```js
+---
+...
+const user = await Astro.locals.currentUser();
+if(!user) {
+	// return Astro.redirect('/login');
+	return new Response('Unauthorized', { status: 401 });
+}
+const userId = user.id;
+const challenges = await getUserChallenges(userId);
+---
+```
+
+2. Vamos a la _API_ de nombre **`challenges.json.ts`**, y recuperamos
+el ID del usuario de manera similar:
+```js
+...
+export const GET: APIRoute = async ({ locals }) => {
+  const user = await locals.currentUser();
+  if (!user) return new Response('Unauthorized', { status: 401 });
+  ...
+};
+
+export const POST: APIRoute = async ({ locals, request }) => {
+  const user = await locals.currentUser();
+  if (!user) return new Response('Unauthorized', { status: 401 });
+  ...
+};
+```
