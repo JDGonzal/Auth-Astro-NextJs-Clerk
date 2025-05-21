@@ -807,3 +807,89 @@ export const config = {
   ],
 };
 ```
+
+## 17. Configurando Clerk (Sign in/ui). (1:24:24)
+
+1. En el archivo **`nextjs-auth/src/app/layout.tsx`**, pongo la
+importación de todos los componentes del paso `4`:
+```js
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+```
+
+2. En el `return` del **`layout.tsx`**, envolvemos todo con el
+renderizado de `<ClerkProvider`:
+```js
+  return (
+    <ClerkProvider>
+      <html lang='en'>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
+  );
+```
+
+3. Justo debajo de la apertura del la etiqueta `<body`, añadimos
+una etiqueta `<header` con lo que viene de la página del punto `4`:
+```js
+					<header className="flex justify-end items-center p-4 gap-4 h-16">
+            <SignedOut>
+              <SignInButton />
+              <SignUpButton />
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </header>
+```
+
+4. Así me aparece la imagen con los nuevos botones:  
+![[Sign In] y [Sign Up]](images/2025-05-21_181302.png "[Sign In] y [Sign Up]")
+
+
+
+
+5. Vamos al archivo **`nextjs-auth/src/app/page.tsx`** para hacer
+algunos cambios:
+```js
+import Image from 'next/image';
+import Link from 'next/link';
+
+export default function Home() {
+  return (
+    <div className='grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]'>
+      <main className='flex flex-col gap-[32px] row-start-2 items-center sm:items-start'>
+        <h1 className='text-4xl sm:text-6xl font-bold text-center'>
+          Next.js + Clerk
+        </h1>
+        <div className='flex gap-4 items-center flex-col sm:flex-row'>
+          <Link
+            className='rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto'
+            href='/protected'
+
+          >
+            <Image
+              className='dark:invert'
+              src='/vercel.svg'
+              alt='Vercel logomark'
+              width={20}
+              height={20}
+            />
+            Entrar a página protegida
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
+}
+```
