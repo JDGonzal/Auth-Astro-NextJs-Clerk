@@ -683,3 +683,74 @@ export const POST: APIRoute = async ({ locals, request }) => {
   ...
 };
 ```
+
+
+## 15. Utilizar Clerk en Next.js. (1:21:12)
+
+1. Detenemos la ejecución del proyecto de `ASTRO`
+
+2. En una `TERMINAL` ubicados en la raíz del proyecto ejecutamos
+el siguiente comando:
+```bash
+pnpm dlx create-next-app@latest nextjs-auth
+```
+* Responder a las solictudes de la siguiente manera:
+```bash
+Packages: +1
++
+Progress: resolved 1, reused 0, downloaded 1, added 1, done
+? Would you like to use TypeScript? » No / Yes <- Yes
+? Would you like to use ESLint? » No / Yes -> Yes
+? Would you like to use Tailwind CSS? » No / Yes <- Yes
+? Would you like your code inside a `src/` directory? » No / Yes <- Yes
+? Would you like to use App Router? (recommended) » No / Yes <- Yes
+? Would you like to use Turbopack for `next dev`? ... No / Yes <- Yes
+? Would you like to customize the import alias (`@/*` by default)? » No / Yes <- No
+```
+* Hace el proceso de instalación y listo:
+```bash
+Creating a new Next.js app in E:\tutorials\nodejs\Auth-Astro-NextJs-Clerk\nextjs-auth.
+
+Using pnpm.
+
+Initializing project with template: app-tw
+
+
+Installing dependencies:
+- react
+- react-dom
+- next
+
+Installing devDependencies:
+- typescript
+- @types/node
+- @types/react
+- @types/react-dom
+- @tailwindcss/postcss
+- tailwindcss
+- eslint
+- eslint-config-next
+- @eslint/eslintrc
+...
+dependencies:
++ next 15.3.2
++ react 19.1.0
++ react-dom 19.1.0
+
+devDependencies:
++ @eslint/eslintrc 3.3.1
++ @tailwindcss/postcss 4.1.7
++ @types/node 20.17.50 (22.15.21 is available)
++ @types/react 19.1.4
++ @types/react-dom 19.1.5
++ eslint 9.27.0
++ eslint-config-next 15.3.2
++ tailwindcss 4.1.7
++ typescript 5.8.3
+```
+
+3. Se añaden al archivo **`.gitignore`**, los archivos que no se
+deben subir al reporistorio:
+```ini
+
+```
