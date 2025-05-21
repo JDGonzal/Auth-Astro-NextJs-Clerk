@@ -685,7 +685,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
 ```
 
 
-## 15. Utilizar Clerk en Next.js. (1:21:12)
+## 15. Creando proyecto con Next.js. (1:21:39)
 
 1. Detenemos la ejecución del proyecto de `ASTRO`
 
@@ -695,7 +695,7 @@ el siguiente comando:
 pnpm dlx create-next-app@latest nextjs-auth
 ```
 * Responder a las solictudes de la siguiente manera:
-```bash
+```dos
 Packages: +1
 +
 Progress: resolved 1, reused 0, downloaded 1, added 1, done
@@ -708,7 +708,7 @@ Progress: resolved 1, reused 0, downloaded 1, added 1, done
 ? Would you like to customize the import alias (`@/*` by default)? » No / Yes <- No
 ```
 * Hace el proceso de instalación y listo:
-```bash
+```dos
 Creating a new Next.js app in E:\tutorials\nodejs\Auth-Astro-NextJs-Clerk\nextjs-auth.
 
 Using pnpm.
@@ -749,8 +749,61 @@ devDependencies:
 + typescript 5.8.3
 ```
 
-3. Se añaden al archivo **`.gitignore`**, los archivos que no se
-deben subir al reporistorio:
-```ini
+>[!TIP]  
+>### Abrir el archivo **`nextjs-auth/package.json`** y borra todos los _carets_ (`^`).
 
+3. Cambiamos al directorio que se acaba de crear y ejecutamos el comando para que el proyecto corra, casi siempre en el puerto 3000:
+```bash
+cd nextjs-auth
+pnpm dev
+```
+* Así ejecuta el proyecto:
+```dos
+> next dev --turbopack
+
+   ▲ Next.js 15.3.2 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.1.11:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.5s
+```
+
+
+## 16. Instalando Clerk. (1:22:20)
+
+1. Entro al sitio de `clerk.com/` y voy al botón del extremo derecho
+de `[Dashboard]`.
+
+2. Y en el botón de `[retos-app]`, selecciono `Create application`
+
+3. En el cuadro de `Application name`, el ponemos: `nextjs-retos-app`:  
+![nextjs-retos-app, solo Google](images/2025-05-21_163727.png "nextjs-retos-app, solo Google")
+* Damos clic en `[Create application]`.
+
+
+
+
+4. Siguiendo las instrucciones de la página que abre, el punto `1`, 
+ejecutar en una `TERMINAL` estos comandos:
+```bash
+cd .\nextjs-auth\
+pnpm add @clerk/nextjs -E
+```
+
+5. Creamos en la carpeta **"src"**, el archivo **`middleware.ts`**,
+con el contenido del punto `3`:
+```js
+import { clerkMiddleware } from '@clerk/nextjs/server';
+
+export default clerkMiddleware();
+
+export const config = {
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
+};
 ```
