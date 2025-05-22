@@ -937,3 +937,34 @@ de `<SignInButton` y `<SignUpButton` , agregamos la propiedad
 4. Creamos el archivo **`.env`** en la carpeta **"nextjs-auth"**,
 y pegamos el contenido del paso `2`, del sitio donde tenemos nuestro
 último proyecto de `clerk.com`.
+
+
+## 19. Proteger rutas. (1:29:54)
+
+1. En el archivo **`nextjs-auth/src/middleware.ts`**, importamos
+para `@clerk` un `createRouteMatcher`.
+
+2. Hacemos algo similar a lo que hicimos en este otro archivo
+**`astro-auth/src/middleware.ts`**:
+```js
+import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
+
+const isProtectedRoute = createRouteMatcher(['/protected(.*)']);
+
+export default clerkMiddleware(async (auth, req) => {
+  // Mira directamente si tiene autorizacion o no
+  if (isProtectedRoute(req)) await auth.protect(); 
+});
+
+export const config = {
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    '/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    // Always run for API routes
+    '/(api|trpc)(.*)',
+  ],
+};
+```
+
+3. Así se ve la ejecución en pantalla:  
+![Página Protegida](images/2025-05-22_155835.gif "Página Protegida")
