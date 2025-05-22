@@ -893,3 +893,47 @@ export default function Home() {
   );
 }
 ```
+
+
+## 18. Página protegida. (1:27:16)
+
+1. Creamos el archivo **`nextjs-auth/src/app/protected/page.tsx`**
+y le escribimos el _snippet_ de `rfce`:
+```js
+import React from 'react';
+
+function Protected() {
+  return <div>protected</div>;
+}
+
+export default Protected;
+```
+
+2. Mejoramos el `return` del archivo **`.../protected/page.tsx`**:
+```js
+  return (
+    <div
+      className='grid grid-rows-[20px_1fr_20px] items-center
+    justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20
+    font-[family-name:var(--font-geist-sans)]'
+    >
+      <main className='flex flex-col gap-[32px] row-start-2 items-center'>
+        <h1>Protected</h1>
+      </main>
+    </div>
+  );
+```
+
+3. En el archivo **`nextjs-auth/src/app/layout.tsx`**, al renderizado
+de `<SignInButton` y `<SignUpButton` , agregamos la propiedad
+`mode`:
+```js
+            <SignedOut>
+              <SignInButton mode='modal' />
+              <SignUpButton mode='modal' />
+            </SignedOut>
+```
+
+4. Creamos el archivo **`.env`** en la carpeta **"nextjs-auth"**,
+y pegamos el contenido del paso `2`, del sitio donde tenemos nuestro
+último proyecto de `clerk.com`.
