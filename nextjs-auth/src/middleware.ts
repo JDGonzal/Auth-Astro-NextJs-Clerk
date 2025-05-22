@@ -4,7 +4,14 @@ const isProtectedRoute = createRouteMatcher(['/protected(.*)']);
 
 export default clerkMiddleware(async (auth, req) => {
   // Mira directamente si tiene autorizacion o no
-  if (isProtectedRoute(req)) await auth.protect(); 
+  if (isProtectedRoute(req)) await auth.protect(has =>{
+    if (!has) {
+      return new Response('Unauthorized', { status: 401 });
+    }
+    return has({
+      permission: 'read',
+    })
+  }); 
 });
 
 export const config = {

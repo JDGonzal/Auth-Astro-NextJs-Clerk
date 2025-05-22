@@ -968,3 +968,25 @@ export const config = {
 
 3. Así se ve la ejecución en pantalla:  
 ![Página Protegida](images/2025-05-22_155835.gif "Página Protegida")
+
+
+
+
+
+## 20. Organizaciones / Roles / Permisos. (1:32:56)
+
+1. En el archivo **`nextjs-auth/src/middleware.ts`**, agregamos un
+_Callback_ a la función `auth.protect()`:
+```js
+export default clerkMiddleware(async (auth, req) => {
+  // Mira directamente si tiene autorizacion o no
+  if (isProtectedRoute(req)) await auth.protect(has =>{
+    if (!has) {
+      return new Response('Unauthorized', { status: 401 });
+    }
+    return has({
+      permission: 'read',
+    })
+  }); 
+});
+```
